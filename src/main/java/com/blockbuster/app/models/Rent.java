@@ -21,7 +21,7 @@ public class Rent {
     private Long id;
     private LocalDateTime rentAt;
     private LocalDateTime devolutionAt;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     @ManyToMany
