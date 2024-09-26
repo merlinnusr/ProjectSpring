@@ -21,6 +21,7 @@ public class ClientService {
         User user = new User();
         user.setEmail(clientDto.getEmail());
         user.setPassword(clientDto.getPassword());
+        user.setRole("user");
         userRepository.save(user);
 
         Client client = new Client();

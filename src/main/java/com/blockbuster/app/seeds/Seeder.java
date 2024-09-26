@@ -7,6 +7,7 @@ import com.blockbuster.app.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -32,14 +33,18 @@ public class Seeder {
             // Check if data already exists to prevent duplicate seeding
             if (userRepository.count() == 0) {
                 // Create Users
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
                 User user1 = new User();
                 user1.setEmail("john.doe@example.com");
-                user1.setPassword("password123");
+                user1.setPassword(passwordEncoder.encode("password123"));
+                user1.setRole("CLIENT");
                 userRepository.save(user1);
 
                 User user2 = new User();
                 user2.setEmail("john.do2e@example.com");
-                user2.setPassword("password123");
+                user2.setPassword(passwordEncoder.encode("password123"));
+                user2.setRole("employee");
                 userRepository.save(user2);
 
                 Client client = new Client();

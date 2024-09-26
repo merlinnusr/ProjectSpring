@@ -8,7 +8,11 @@ import com.blockbuster.app.models.User;
 import com.blockbuster.app.repositories.MovieRepository;
 import com.blockbuster.app.repositories.RentRepository;
 import com.blockbuster.app.repositories.UserRepository;
+import com.blockbuster.app.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,6 +28,8 @@ public class RentService {
     private UserRepository userRepository;
     @Autowired
     private RentRepository rentRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     private static final Long DEFAULT_MOVIE_ID = 1L;
     private static final BigDecimal DEFAULT_AMOUNT = BigDecimal.valueOf(1000);
@@ -44,7 +50,18 @@ public class RentService {
         return rentRepository.save(rent);
     }
     public List<Rent> all() {
-        return rentRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+
+            // Query the database to find the user ID by the username
+            User user = userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("No existe el usuario"));  // Assume your User entity has a getId method
+
+            return rentRepository.findByUserId(user.getId());
+
+        }
+        return Collections.emptyList();
     }
     public Rent find(Long id) {
         return rentRepository.findById(id).orElseThrow(() -> new RentNotFoundException("Renta no encontrada"));
