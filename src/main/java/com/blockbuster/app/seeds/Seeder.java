@@ -44,7 +44,7 @@ public class Seeder {
                 User user2 = new User();
                 user2.setEmail("john.do2e@example.com");
                 user2.setPassword(passwordEncoder.encode("password123"));
-                user2.setRole("employee");
+                user2.setRole("EMPLOYEE");
                 userRepository.save(user2);
 
                 Client client = new Client();
