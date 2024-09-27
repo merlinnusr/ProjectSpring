@@ -2,9 +2,6 @@ package com.blockbuster.app.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.antlr.v4.runtime.Token;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +17,7 @@ public class JwtUtil {
     private static final long  EXPIRATION_DATE = 86400000;
     public JwtUtil(){
         String secret = "843567893696976453275974432697R634976R738467TR678T34865R6834R8763T478378637664538745673865783678548735687R3";
-        byte[] keyBytes = Base64.getDecoder().decode(secret.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
         this.Key = new SecretKeySpec(keyBytes, "HmacSHA256");
     }
     public String generateToken(UserDetails userDetails){
