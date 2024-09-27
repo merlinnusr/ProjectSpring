@@ -38,7 +38,6 @@ public class MovieService {
 
     public Movie update(MovieDto movieDto, Long id){
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new RentNotFoundException("No se encuentra la pelicula"));
-
         movie.setTitle(movieDto.getTitle());
         movie.setGenre(movieDto.getGenre());
         movie.setDirector(movieDto.getDirector());
@@ -48,5 +47,8 @@ public class MovieService {
         movie.setStock(movieDto.getStock());
 
         return movie;
+    }
+    public void deleteMovie(Long id){
+        movieRepository.deleteById(id);
     }
 }

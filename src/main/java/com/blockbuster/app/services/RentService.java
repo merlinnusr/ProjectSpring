@@ -81,6 +81,11 @@ public class RentService {
         return rent;
     }
 
+    public void deleteRent(Long id) {
+        rentRepository.deleteById(id);
+    }
+
+
     private Movie findMovieById(Long id) {
         return movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
     }

@@ -25,8 +25,12 @@ public class RentController {
     public Rent find(@PathVariable Long id) {
         return rentService.find(id);
     }
-    @PutMapping
+    @PutMapping("{id}")
     public Rent update(@RequestBody RentDto rentDto, @PathVariable Long id) {
         return rentService.update(rentDto, id);
+    }
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id) {
+        rentService.deleteRent(id);
     }
 }

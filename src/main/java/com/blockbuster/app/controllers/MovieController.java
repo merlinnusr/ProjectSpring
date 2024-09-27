@@ -25,9 +25,13 @@ public class MovieController {
     public Movie find(@PathVariable Long id) {
         return movieService.find(id);
     }
-    @PutMapping
+    @PutMapping("{id}")
     public Movie update(@RequestBody MovieDto movieDto, @PathVariable Long id) {
         return movieService.update(movieDto, id);
+    }
+    @DeleteMapping
+    public void delete(@PathVariable Long id) {
+        movieService.deleteMovie(id);
     }
 
 }

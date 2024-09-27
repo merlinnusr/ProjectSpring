@@ -58,4 +58,7 @@ public class ClientService {
         return client;
     }
 
+    public void deleteClient(Long id){
+        clientRepository.deleteById(id);
+    }
 }
